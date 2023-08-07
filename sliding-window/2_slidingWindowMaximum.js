@@ -130,6 +130,89 @@ function calMaxSlidingWindow(nums = [], k = 0)
     return resultArray
 }
 
+// 2nd best optimized till now -> TLE
+function calMaxSlidingWindow(nums = [], k = 0)
+{
+    if(!nums || nums.length === 0)
+        return k;
+
+    const resultArray = []    
+    let i = 0, j = 0;
+    let maxNumberArray = [];
+    
+    while(j < nums.length)
+    {
+        if((maxNumberArray.length === 0) || nums[j] > maxNumberArray[0])
+        {
+            maxNumberArray = [nums[j]]
+        }
+        else
+        {
+            for(let m = 1; m < maxNumberArray.length+1; m++)
+            {
+                if(m === maxNumberArray.length || nums[j] >= maxNumberArray[m])
+                {
+                    maxNumberArray.splice(m, 0, nums[j])
+                    break;
+                }
+            }
+        }
+
+        const currentSize = (j-i)+1;
+        if(currentSize < k)
+            j++
+        else if(currentSize === k)
+        {
+            resultArray.push(maxNumberArray[0]);
+            if(maxNumberArray[0] === nums[i])
+            {
+                maxNumberArray.shift()
+            }
+                
+            j++
+            i++
+        }
+            
+    }
+
+    return resultArray
+}
+function calMaxSlidingWindow(nums = [], k = 0)
+{
+    if(!nums || nums.length === 0)
+        return k;
+
+    const resultArray = []    
+    let i = 0, j = 0;
+    let maxNumberArray = [];
+    
+    while(j < nums.length)
+    {
+        if((maxNumberArray.length === 0) || nums[j] >= maxNumberArray[0])
+            maxNumberArray = [nums[j]]
+        else if(nums[j] >= maxNumberArray[1])
+            maxNumberArray = [maxNumberArray[0], nums[j]]
+
+        const currentSize = (j-i)+1;
+        if(currentSize < k)
+            j++
+        else if(currentSize === k)
+        {
+            resultArray.push(maxNumberArray[0]);
+            if(maxNumberArray[0] === nums[i])
+            {
+                maxNumberArray.shift()
+            }
+                
+            j++
+            i++
+        }
+            
+    }
+
+    return resultArray
+}
+
 // GPT generated
 function calMaxSlidingWindow(nums, k) {
     if (!nums || k <= 0) {
