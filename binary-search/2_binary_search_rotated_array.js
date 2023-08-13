@@ -29,6 +29,33 @@ function rotationInSortedArray(nums = [])
     return -1
 }
 
+ //https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+ function rotationInSortedArray(nums = [])
+ {
+     let start = 0, end = nums.length - 1, mid;
+ 
+     while(start<=end)
+     {
+         mid = start + Math.floor((end-start)/2)
+ 
+         // we are either on first, last index or min element index
+         const checkLastIndex = nums[mid+1] !== 0 && !nums[mid+1];
+        const checkFirstIndex = nums[mid-1] !== 0 && !nums[mid-1];
+        if(checkFirstIndex || checkLastIndex || (nums[mid] < nums[mid+1] && nums[mid] < nums[mid-1]))
+         {
+             return nums[mid] 
+         }
+ 
+         // sorted array to left
+         if(nums[mid] > nums[0])        
+             start = mid+1;
+         else 
+             end = mid - 1;
+     }
+ 
+     return -1
+ }
+
 // TODO:
 // Q1: Check if Array Is Sorted and Rotated
 // https://leetcode.com/problems/check-if-array-is-sorted-and-rotated/
@@ -144,3 +171,5 @@ function binarySearch(nums = [], start, end, target)
 
     return -1
 }
+
+// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/
