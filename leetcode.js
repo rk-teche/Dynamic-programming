@@ -75,6 +75,12 @@ function twoConsecutiveNumbers(inputArray = [])
     return [-1, -1]
 }
 
-// https://leetcode.com/problems/minimum-absolute-sum-difference/description/
+// https://leetcode.com/problems/minimum-absolute-sum-difference/
 // https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/
-// https://leetcode.com/problems/minimum-time-to-complete-trips/description/
+// https://leetcode.com/problems/minimum-time-to-complete-trips/
+// https://leetcode.com/problems/find-in-mountain-array/
+// https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array/
+// https://leetcode.com/problems/get-maximum-in-generated-array/
+// https://leetcode.com/problems/split-array-largest-sum/description/
+// https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/
+// https://github.com/rk-teche/coding-competitions-archive

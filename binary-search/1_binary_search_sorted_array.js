@@ -307,7 +307,6 @@ function minimumDifferece(nums = [], target)
  * // Peak Elements -> 20, 90 (both are greater than its neighbour)
  * // So our can answer can be 1/5 index, either of them is correct
  * // https://leetcode.com/problems/find-peak-element/
- * // https://leetcode.com/problems/peak-index-in-a-mountain-array/
  */
 function peakElement(nums = [])
 {
@@ -333,4 +332,140 @@ function peakElement(nums = [])
     }
 
     return peakIndex
+}
+
+/**
+ * Biotonic Array - monotonically increasing and then monotonically decreasing
+ * E.g. [1, 3, 8, 12, 4, 2, 1] where nums[index] !== nums[index+1]
+ * first this array is monotonically increaseing [1,3,8,12]
+ * then it's monotonically decreasing [12,4,2,1]
+ * 
+ * Note - 
+ *  1. It is always a single peak element,
+ *  2. biotonic array can't be a sorted array and one can't make it sorted array even by rotation
+ *      *
+ *    *   *
+ *   *     *
+ *  *       *
+ * *         *
+ * https://leetcode.com/problems/peak-index-in-a-mountain-array/
+ * Code is same as above `peak element code`
+ */
+
+
+/**
+ * Search in 2D matrix
+ * 2D matrix is sorted in row and column wise both
+ * https://leetcode.com/problems/search-a-2d-matrix/
+ * https://leetcode.com/problems/search-a-2d-matrix-ii/
+ */
+
+var searchMatrix = function(matrix, target) {
+    let i = 0; j = matrix[0].length - 1;
+    while(j >= 0 && i < matrix.length)
+    {
+        if(matrix[i][j] > target)
+            j--;
+        else if(matrix[i][j] < target)
+            i++;
+        else
+            return true;
+    }
+
+    return false;
+};
+
+/**
+ * Q: Allocate minimum number of pages
+ * Example -
+ * Some books with number of pages - [10,20,30,40]
+ * These books need to distribute among n number students
+ *  Constrains -
+ *   1. only whole book can be allocated to a student
+ *   2. Each student gets at least one book
+ *   3. Distribution of book in continuous manner
+ * 
+ * Note - Books array may or may not be sorted
+ * 
+ * Problem statement - Minimize the maximum number of pages a student can read
+ * https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+ */
+
+// [10,20,30,40], 2
+// TODO
+function allcocateBooks(nums = [], students)
+{
+    if(students > nums.length)
+        return -1
+
+    let start = Math.max(...nums), end = nums.reduce((a,b)=> a+b), mid;
+
+    while(start <= end)
+    {
+        mid = start + Math.floor((end-start)/2)
+
+        if(isValid(nums, students, mid))
+            end = mid - 1
+        else
+            start = mid + 1    
+    }
+
+}
+
+function isValid(nums = [], students = 0, max)
+{
+    let sum = 0, studentNum = 1;
+    for(let i = 0; i < nums.length; i++)
+    {
+        sum = sum + nums[i]
+        if(sum > max)
+        {
+            studentNum++
+            sum = nums[i]
+        }
+
+        if(studentNum > students)
+            return false
+    }
+
+    console.log("sum", sum)
+    if(studentNum === students)
+            return true
+}
+
+// https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
+
+function shipWithinDays(weights = [], days)
+{
+    let start = Math.max(...weights),
+    end = weights.reduce((a,b) => a + b), mid;
+
+    while(start < end)
+    {
+        if(isValid(weights, days, mid))
+            end = mid + 1
+        else
+            start = mid - 1
+    }
+
+}
+
+function isValid(weights = [], days, max)
+{
+    let numberOfDays = 1, sum = 0;
+    for(let i = 0; i < weights.length; i++)
+    {
+        sum += weights[i]
+
+        if(sum > max)
+        {
+            numberOfDays++
+            sum = weights[i]
+        }
+
+        if(numberOfDays > days)
+            return false
+    }
+
+    return true
 }
