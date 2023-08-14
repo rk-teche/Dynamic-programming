@@ -17,7 +17,7 @@
  * 
  */
 
-function knapSack01(priceArray = [], weightArray = [], capacity = 0) // knapSack01([60,100,120], [10,20,30], 50) ->  220
+function knapSack01(priceArray = [], weightArray = [], capacity = 0) //knapSack01([60,100,120], [10,20,30], 50) ->  220
 {
     if(weightArray.length === 0 || capacity === 0)
         return 0
@@ -35,6 +35,71 @@ function knapSack01(priceArray = [], weightArray = [], capacity = 0) // knapSack
     {
         return knapSack01(priceArray, weightArray, capacity)
     }
+}
+
+function knapSackMemo(weightArray = [], valueArray = [], capacity)
+{
+    const dp = new Array(valueArray.length + 1).fill(new Array(capacity +1).fill(-1))
+
+    return knapSack(weightArray, valueArray, capacity, dp)
+}
+
+function knapSack(weightArray = [], valueArray = [], capacity = 0, dp = [[]], totalValue = 0, i = 0)
+{
+    // base condition
+    if(capacity < 0)
+        return totalValue - valueArray[i-1]
+
+    if(i === weightArray.length)
+        return totalValue
+
+    if(dp[i][capacity] !== -1)    
+        return dp[i][capacity];
+
+    dp[i][capacity] = Math.max(
+        knapSack(weightArray, valueArray, capacity - weightArray[i], dp, totalValue + valueArray[i], i+1),
+        knapSack(weightArray, valueArray, capacity, dp, totalValue, i+1)
+    )
+
+    return dp[i][capacity];
+}
+
+// https://leetcode.com/problems/house-robber/
+
+// https://leetcode.com/problems/house-robber-ii/
+// TODO : stack overflow, need optimization
+// [94,40,49,65,21,21,106,80,92,81,679,4,61,6,237,12,72,74,29,95,265,35,47,1,61,397,52,72,37,51,1,81,45,435,7,36,57,86,81,72]
+function maxRobAmount(houseArray = [], houseNumber = 0, maxCash = 0)
+{
+    if(houseNumber > houseArray.length)
+        return maxCash
+
+   const currentCash = maxRobAmountPerHouse(houseArray, houseNumber)
+
+   maxCash = Math.max(currentCash, maxCash)
+
+   return maxRobAmount(houseArray, houseNumber + 1, maxCash)
+}
+
+function maxRobAmountPerHouse(houseArray = [], houseNumber, totalValue = 0, i = 0)
+{
+    // base condition
+    if(i >= houseArray.length)
+        return totalValue
+
+    const idx = (houseNumber + i) % houseArray.length;
+    const lastAdjusentHouse = houseNumber - 1 < 0 ? (houseArray.length - 1) : houseNumber - 1    
+    const firstAdjusentHouse = houseNumber + 1 > (houseArray.length - 1) ?  0 : houseNumber + 1    
+
+    if(idx !== lastAdjusentHouse && firstAdjusentHouse !== idx)
+        return Math.max(
+            maxRobAmountPerHouse(houseArray, houseNumber, totalValue + (houseArray[idx] ? houseArray[idx] : 0), i+2),
+            maxRobAmountPerHouse(houseArray, houseNumber, totalValue + (i === 0 ? houseArray[idx] : 0), i+1)
+        )
+    else
+    {
+        return maxRobAmountPerHouse(houseArray, houseNumber, totalValue + (i === 0 ? houseArray[idx] : 0), i+2)
+    }    
 }
 
 // 0-1 Knapsack : Memoization

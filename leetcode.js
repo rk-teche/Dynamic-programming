@@ -84,3 +84,48 @@ function twoConsecutiveNumbers(inputArray = [])
 // https://leetcode.com/problems/split-array-largest-sum/description/
 // https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/
 // https://github.com/rk-teche/coding-competitions-archive
+
+
+// https://leetcode.com/problems/two-sum/
+// my solution
+var twoSum = function(nums, target) {
+    let i = 0, j= 1;
+    while(j < nums.length)
+    {
+        target -= nums[i]
+        
+        while(target !== nums[j] && j < nums.length)
+        {
+            j++
+        }
+
+        if(target === nums[j])
+            return [i,j]
+        else
+        {
+            target += nums[i]
+            i++
+            j = i+1
+        }
+
+    }
+
+    return [-1, -1]
+};
+
+// best solution 
+var twoSum = function(nums, target) {
+    const map = {}
+    
+        for (let i = 0; i <= nums.length; i++) {
+            const remainder = target - nums[i]
+    
+            if(map.hasOwnProperty(remainder)) {
+                return [map[remainder], i]
+            }
+    
+            map[nums[i]] = i 
+        }
+    
+        return []
+    };
