@@ -75,15 +75,18 @@ function twoConsecutiveNumbers(inputArray = [])
     return [-1, -1]
 }
 
-// https://leetcode.com/problems/minimum-absolute-sum-difference/
-// https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/
-// https://leetcode.com/problems/minimum-time-to-complete-trips/
-// https://leetcode.com/problems/find-in-mountain-array/
-// https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array/
-// https://leetcode.com/problems/get-maximum-in-generated-array/
-// https://leetcode.com/problems/split-array-largest-sum/description/
-// https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/
-// https://github.com/rk-teche/coding-competitions-archive
+// ? https://leetcode.com/problems/minimum-absolute-sum-difference/
+// ? https://leetcode.com/problems/minimize-the-difference-between-target-and-chosen-elements/
+// ? https://leetcode.com/problems/minimum-time-to-complete-trips/
+// ? https://leetcode.com/problems/find-in-mountain-array/
+// ? https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array/
+// ? https://leetcode.com/problems/get-maximum-in-generated-array/
+// ? https://leetcode.com/problems/split-array-largest-sum/description/
+// ? https://leetcode.com/problems/minimized-maximum-of-products-distributed-to-any-store/description/
+// ? https://github.com/rk-teche/coding-competitions-archive
+// ? https://leetcode.com/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/description/
+// ? https://leetcode.com/problems/query-kth-smallest-trimmed-number/description/
+// ? https://leetcode.com/problems/utf-8-validation/description/
 
 
 // https://leetcode.com/problems/two-sum/
@@ -129,3 +132,16 @@ var twoSum = function(nums, target) {
     
         return []
     };
+
+    // https://leetcode.com/problems/function-composition/
+    var compose = function(functions) {
+        return function(x) {
+            for(let i = (functions.length - 1); i >= 0; i--)
+            {
+                x = functions[i](x);
+            }
+    
+            return x;
+        }
+    };
+    
