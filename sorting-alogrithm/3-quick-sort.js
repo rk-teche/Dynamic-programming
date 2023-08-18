@@ -17,3 +17,23 @@
  * * 4. Repeatedly concatenate the left array, pivot and right array till one sorted array remains.
  */
 
+// https://leetcode.com/problems/sort-an-array/
+// stack overflow because of recursion
+// ! Complexity : O(nlogn)
+function quickSort(nums = [])
+{
+    if(nums.length < 2)
+        return nums;
+
+    let pivot = nums[nums.length - 1], left = [], right = [];
+
+    for(let i = 0; i < (nums.length - 1); i++)
+    {
+        if(nums[i] < pivot)
+            left.push(nums[i])
+        else
+            right.push(nums[i])    
+    }
+
+    return [...quickSort(left), pivot, ...quickSort(right)]
+}
