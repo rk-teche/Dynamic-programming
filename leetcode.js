@@ -144,4 +144,44 @@ var twoSum = function(nums, target) {
             return x;
         }
     };
-    
+
+
+/**
+* https://leetcode.com/problems/merge-intervals/
+* 
+* (a <= d and c <= b)
+*  [[1,3],[2,6],[8,10],[15,18]]
+*  1 <= 6 // true
+*  2 <= 3 // true
+*  
+*  1 <= 10 // true
+*  8 <= 3 // false
+* 
+**/
+
+var merge = function(intervals) 
+{
+    for(let i = 0; i < intervals.length; i++)
+    {
+        let j = i+1;
+        while(j < intervals.length)
+        {
+            if(intervals[i][0] <= intervals[j][1] && intervals[j][0] <= intervals[i][1])
+            {
+                const idx1 = intervals[i][0] > intervals[j][0] ? intervals[j][0] : intervals[i][0]
+                const idx2 = intervals[i][1] > intervals[j][1] ? intervals[i][1] : intervals[j][1]
+                intervals[i] = [idx1, idx2]
+                intervals.splice(j, 1)
+                j = i+1
+            }
+            else
+                j++
+        }
+    }
+
+    return intervals;
+};
+
+/**
+ * https://leetcode.com/problems/insert-interval/
+ */

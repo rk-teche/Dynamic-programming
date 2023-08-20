@@ -17,9 +17,16 @@
  * * 4. Repeatedly concatenate the left array, pivot and right array till one sorted array remains.
  */
 
-// https://leetcode.com/problems/sort-an-array/
+/**
+ * https://leetcode.com/problems/sort-an-array/
+ * ! Complexity : 
+ *      worst case : O(n^n)
+ *      average case : O(nlogn)
+ * @param {*} nums 
+ * @returns 
+ */
+
 // stack overflow because of recursion
-// ! Complexity : O(nlogn)
 function quickSort(nums = [])
 {
     if(nums.length < 2)
