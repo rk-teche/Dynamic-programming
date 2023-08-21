@@ -126,7 +126,6 @@ function knapSack01(priceArray = [], weightArray = [], capacity = 0, size = 0, d
  * Step 1 : Initialization
  * Step 2 : Recursive call convert into iterative version
  */
-
 function knapSack01TopDown(priceArray = [], weightArray = [], capacity = 0)
 {
     const rows = priceArray.length + 1;
@@ -145,32 +144,30 @@ function knapSack01TopDown(priceArray = [], weightArray = [], capacity = 0)
         {
             if(i === 0 || j === 0)
             {
-                matrix[i][j] = 0
+                matrix[i][j] = 0;
             }
         }
     }
 
-    return knapSack01(priceArray, weightArray, capacity, priceArray.length, matrix)
+    return knapSack01(priceArray, weightArray, capacity, priceArray.length, matrix);
 
 }
 
 function knapSack01(priceArray = [], weightArray = [], capacity = 0, size = 0, matrix = [[],[]])
 {
-    const currentWeight = weightArray[size - 1] 
-    const currentPrice = priceArray[size - 1]
-    
-    if(currentWeight <= capacity)
-    {
-        matrix[size][capacity] = Math.max(currentPrice + matrix[size - 1][capacity - currentWeight], matrix[size - 1][capacity])
-        // dp[size][capacity] = Math.max(currentPrice + knapSack01(priceArray, weightArray, capacity - currentWeight, size - 1, dp), knapSack01(priceArray, weightArray, capacity, size - 1, dp) )
-    }
-    else 
-    {
-        matrix[size][capacity] = matrix[size - 1][capacity]
-        // dp[size][capacity] = knapSack01(priceArray, weightArray, capacity, size - 1, dp)
-    }
 
-    return matrix[size][capacity]
+    for(let n = 1; n <= weightArray.length; n++)
+    {
+        for(let w = 1; w <= capacity; w++)
+        {
+            if(weightArray[n-1] <= w)
+                matrix[n][w] = Math.max(priceArray[n-1] + matrix[n-1][w - (weightArray[n-1])], matrix[n-1][w]);
+            else
+                matrix[n][w] = matrix[n-1][w-1];  
+        }
+    }
+    
+    return matrix[weightArray.length][capacity];
 }
 
 function knapsack01(weights, values, capacity) { // [3,4] [1,2] 7
