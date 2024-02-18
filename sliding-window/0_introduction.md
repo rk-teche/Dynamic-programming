@@ -10,3 +10,7 @@ Window Size is either given or we have to find out
 # Type of Sliding window
 1. Fixed size window
 2. Variable size window : they asked for window size in program i.e. calculate largest window and smallest window
+
+
+# Problems -
+https://leetcode.com/tag/sliding-window/
