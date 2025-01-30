@@ -2,6 +2,17 @@
 // Q. Tower of Hanoi
 // Q. Balanced Parantheses simplified version
 
+// Q. Create sub-set of string ab
+function subset(input = "", output = "", result = [])
+{
+    if(input.length === 0)
+        result.push(output);
+        return result
+
+        
+}
+
+// Q. Sort an array using recursion
 function sortArray(numberArray = []) // [7,1] some issue
 {
     if(numberArray.length === 1)
