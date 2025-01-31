@@ -8,8 +8,6 @@ function subset(input = "", output = "", result = [])
     if(input.length === 0)
         result.push(output);
         return result
-
-        
 }
 
 // Q. Sort an array using recursion

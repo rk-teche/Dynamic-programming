@@ -1,3 +1,7 @@
+LeetCode -
+1. Rank 1 - https://leetcode.com/u/cpcs/
+2. Rank 34 - https://leetcode.com/u/skywalkert/
+
 # DP is enhanced recursion
 
 [X] Recursive solution 

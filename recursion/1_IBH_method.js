@@ -46,7 +46,40 @@ function factorial(n)
     return n * factorial(n-1) //hypothesis
 }
 
+/**
+ * https://leetcode.com/problems/k-th-symbol-in-grammar/
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var kthGrammar = function(n, k) 
+{
+    if(n === 1 &&  k === 1)
+        return 0
 
+    const mid = Math.pow(2, n-1)/2;
+    return k > mid ? (!kthGrammar(n-1, k - mid) ? 1 : 0) : kthGrammar(n-1, k);
+    
+};
 
+/**
+ * Tower of Hanoi
+ */ 
+function towerOfHanoi(n, source, destination, auxiliary, count = 0) {
+    count++
+    if (n === 1) {
+        console.log(`Move disk 1 from ${source} to ${destination}`);
+        return;
+    }
 
+    // Move n-1 disks from source to auxiliary, using destination as helper
+    towerOfHanoi(n - 1, source, auxiliary, destination, count);
 
+    // Move the nth disk from source to destination
+    console.log(`Move disk ${n} from ${source} to ${destination}`);
+
+    // Move n-1 disks from auxiliary to destination, using source as helper
+    towerOfHanoi(n - 1, auxiliary, destination, source, count);
+
+    return count
+}

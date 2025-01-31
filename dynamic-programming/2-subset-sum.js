@@ -1,3 +1,68 @@
+/**
+ * Subset sum problem -
+ * 1. https://leetcode.com/problems/maximum-subarray/description/
+ * 2. https://leetcode.com/problems/partition-to-k-equal-sum-subsets/description/
+ * 3. https://leetcode.com/problems/number-of-subsequences-that-satisfy-the-given-sum-condition/description/
+ * 4. https://leetcode.com/problems/subarray-sum-equals-k/description/
+ * 5. https://leetcode.com/problems/target-sum/description/
+ * 6. https://leetcode.com/problems/partition-array-into-two-arrays-to-minimize-sum-difference/description/
+ * 7. https://leetcode.com/problems/constrained-subsequence-sum/description/
+ * 8. https://leetcode.com/problems/maximum-alternating-subsequence-sum/description/
+ * 9. https://leetcode.com/problems/sum-of-all-subset-xor-totals/description/
+ * 10. https://leetcode.com/problems/combination-sum/description/
+ * 11. https://leetcode.com/problems/maximum-element-sum-of-a-complete-subset-of-indices/description/
+ * 12. https://leetcode.com/problems/minimum-size-subarray-sum/description/
+ * 13. https://leetcode.com/problems/maximum-subarray/description/
+ * 14. https://leetcode.com/problems/find-array-given-subset-sums/description/
+ * 15. https://leetcode.com/problems/the-number-of-beautiful-subsets/description/
+ */
+
+
+/**
+ * String subsets
+ * @param {String} input 
+ * @param {String} output 
+ * @param {Array} subsets 
+ * @returns 
+ */
+function findSubSet(input = "", output = "", subsets = [])
+{
+  if(!input.length)
+  {
+    subsets.push(output)
+    return subsets;
+  }
+
+  const ele = input[0];
+  input = input.substring(1, input.length)
+
+  findSubSet(input, output, subsets)
+  return findSubSet(input, output+ele, subsets)
+
+}
+
+/**
+ * https://leetcode.com/problems/subsets/
+ * @param {*} input 
+ * @param {*} output 
+ * @param {*} subsets 
+ * @returns 
+ */
+function findSubSet(input = [], output = [], subsets = [])
+{
+  if(!input.length)
+  {
+    subsets.push([...output])
+    return subsets;
+  }
+
+  const ele = input[0];
+  input = input.slice(1);
+  findSubSet(input, [...output], subsets)
+  return findSubSet(input, [...output, ele], subsets) 
+}
+
+
 // [1,2,3,5], 8
 function subSetSum(valueArray = [], sum = 0, i = 0, output = [])
 {
@@ -17,7 +82,6 @@ function subSetSum(valueArray = [], sum = 0, i = 0, output = [])
     else
     {
       return subSetSum(valueArray, sum, i+1)
-
     }
 }
 
