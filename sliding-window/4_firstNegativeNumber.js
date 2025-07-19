@@ -28,3 +28,37 @@ function firstNegatives(integerArray = [], k)
 
     return resultArray
 }
+
+function isNegative(num)
+{
+    return num < 0 || (1/num === -Infinity)
+}
+
+function firstNegativeNum(nums = [], k = 0)
+{
+    let firstNegative = false, negativeArray = [];
+   for(let i = 0; i < nums.length; i++)
+   {
+        for(let j = i; j < i+k; j++)
+        {
+            if(!firstNegative)
+            {
+                if(isNegative(nums[j]))
+                {
+                    negativeArray.push(nums[j]);
+                    firstNegative = true;
+                }
+                const index = i+k-1;
+                if(j === index && index < nums.length)
+                {
+                    negativeArray.push(0);
+                    firstNegative = true;
+                }
+            }
+
+        }
+        firstNegative = false;
+   }
+
+   return negativeArray
+}

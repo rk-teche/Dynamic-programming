@@ -2,6 +2,12 @@ LeetCode -
 1. Rank 1 - https://leetcode.com/u/cpcs/
 2. Rank 34 - https://leetcode.com/u/skywalkert/
 
+# How to identify DP
+Enhanced Recusion - Recusion + Overlapping problem 
+Looking for Optimal value in question e.g. Minimum, Maximum, Largest, Smallest
+DP = Recursion + Storage
+
+
 # DP is enhanced recursion
 
 [X] Recursive solution 
@@ -10,15 +16,61 @@ LeetCode -
 
 Topics -
 0-1 Knapsack
+ - 6 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
 Unbounded Kanpsack
+ - 5 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
 Fibonacci
+ - 7 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
 LCS
+ - 15 Varitions 
+    1. Subset Sum
+    2. Equal Sum Partition
+    3. Count of Subset sum
+    4. Minimum Subset sum difference
+    5. Target Sum
+    6. # of Subset in given 
 LIS
+ - 10 Varitions 
+    1. Subset Sum
+    2. Equal Sum Partition
+    3. Count of Subset sum
+    4. Minimum Subset sum difference
+    5. Target Sum
+    6. # of Subset in given 
 Kadane's Algorithm
+ - 6 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
 Matrix Chain multiplication
+ - 7 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
 DP on trees
+ - 4 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
 DP on Grid
-Others    
+ - 14 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum
+Others
+ - 5 Varitions 
+    1. Sub set sum
+    2. Count Number of sub set
+    3. Target Sum    
 
 1. https://leetcode.com/problems/target-sum/description/
 2. https://leetcode.com/problems/partition-equal-subset-sum/description/

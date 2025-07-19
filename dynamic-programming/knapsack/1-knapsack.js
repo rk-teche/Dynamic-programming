@@ -11,11 +11,70 @@
  * 
  * 
  * Type of Kansack -
- *  1. Fractional Knapsack
+ *  1. Fractional Knapsack - Greedy Algorithm
+ *          - Item can be stored in fraction
  *  2. 0-1 Kanpsack
- *  3. Unbounded Kanpsack        
+ *          - Either whole item can pick or not pick that's why called 0/1
+ *          - Item cann't be repeated (Only Unique item)
+ *  3. Unbounded Kanpsack  
+ *          - same as 0-1 Kanpsack but items can be duplicate also   
+ *          - Multiple occurances   
  * 
  */
+
+
+/**
+ *  Limitations and Edge Cases
+ * Edge Case
+  1. Empty weight/value arrays Should return 0 ✅
+  2. capacity = 0 should return 0 ✅
+  3. weightArray.length ≠ valueArray.length 
+        Should raise error or handle gracefully ❌
+  4. Undefined behavior — may access mismatched indices Negative weights or values
+        Not expected in classic 0/1 Knapsack ❌
+  5. No check exists; logic will break or behave incorrectly
+        Large input sizes (e.g. 30+ items)
+        Will cause stack overflow due to deep recursion ❌
+No memoization or optimization, exponential 
+
+ * @param {*} weightArray 
+ * @param {*} valueArray 
+ * @param {*} capacity 
+ * @param {*} i 
+ * @returns 
+ */
+
+function O1knapsackDP(weightArray = [], valueArray = [], capacity)
+{
+    const size = weightArray.length;
+    const t = Array.from({ length: size }, () => Array(capacity).fill(-1))
+
+    return O1knapsack(weightArray, valueArray, capacity, size, t)
+}
+
+function O1knapsack(weightArray = [], valueArray = [], capacity, i, t)
+{
+    // base condition = Think of smallest valid input
+    if(i === 0 || capacity === 0)
+        return 0;
+
+    if(t[i][capacity] !== -1)
+        return t[i][capacity];
+
+    if(weightArray[index] <= capacity)
+    {
+        const includeWeight = valueArray[index] + O1knapsack(weightArray, valueArray, capacity - weightArray[index], i-1)
+        const notIncludeWeight =  O1knapsack(weightArray, valueArray, capacity, i-1)
+        t[i][capacity] = Math.max(includeWeight, notIncludeWeight)
+
+    }
+    else
+    {
+        t[i][capacity] = O1knapsack(weightArray, valueArray, capacity, i-1)
+    }
+
+    return t[i][capacity];
+}
 
 function unboundedKnapSack(priceArray = [], weightArray = [], capacity = 0) //knapSack01([60,100,120], [10,20,30], 50) ->  220
 {
@@ -198,45 +257,3 @@ const values = [3, 4, 5, 6];
 const capacity = 5;
 const maxValue = knapsack01(weights, values, capacity);
 console.log(maxValue); // Output: 7
-
-
-
-
-
-// https://leetcode.com/problems/house-robber/
-
-// https://leetcode.com/problems/house-robber-ii/
-// TODO : stack overflow, need optimization
-// [94,40,49,65,21,21,106,80,92,81,679,4,61,6,237,12,72,74,29,95,265,35,47,1,61,397,52,72,37,51,1,81,45,435,7,36,57,86,81,72]
-function maxRobAmount(houseArray = [], houseNumber = 0, maxCash = 0)
-{
-    if (houseNumber > houseArray.length)
-        return maxCash;
-
-    const currentCash = maxRobAmountPerHouse(houseArray, houseNumber);
-
-    maxCash = Math.max(currentCash, maxCash);
-
-    return maxRobAmount(houseArray, houseNumber + 1, maxCash);
-}
-
-function maxRobAmountPerHouse(houseArray = [], houseNumber, totalValue = 0, i = 0)
-{
-    // base condition
-    if (i >= houseArray.length)
-        return totalValue;
-
-    const idx = (houseNumber + i) % houseArray.length;
-    const lastAdjusentHouse = houseNumber - 1 < 0 ? (houseArray.length - 1) : houseNumber - 1;
-    const firstAdjusentHouse = houseNumber + 1 > (houseArray.length - 1) ? 0 : houseNumber + 1;
-
-    if (idx !== lastAdjusentHouse && firstAdjusentHouse !== idx)
-        return Math.max(
-            maxRobAmountPerHouse(houseArray, houseNumber, totalValue + (houseArray[idx] ? houseArray[idx] : 0), i + 2),
-            maxRobAmountPerHouse(houseArray, houseNumber, totalValue + (i === 0 ? houseArray[idx] : 0), i + 1)
-        );
-    else
-    {
-        return maxRobAmountPerHouse(houseArray, houseNumber, totalValue + (i === 0 ? houseArray[idx] : 0), i + 2);
-    }
-}
