@@ -43,6 +43,27 @@ No memoization or optimization, exponential
  * @param {*} i 
  * @returns 
  */
+function O1knapsackRecursive(weightArray = [], valueArray = [], capacity, i = 1)
+{
+    const index = weightArray.length - i;
+    
+    // base condition = Think of smallest valid input
+    if(weightArray[index] === undefined || capacity === 0)
+        return 0;
+
+    
+    if(weightArray[index] <= capacity)
+    {
+        const includeWeight = valueArray[index] + O1knapsackRecursive(weightArray, valueArray, capacity - weightArray[index], i+1)
+        const notIncludeWeight =  O1knapsackRecursive(weightArray, valueArray, capacity, i+1)
+        return Math.max(includeWeight, notIncludeWeight)
+    }
+    else
+    {
+        return O1knapsackRecursive(weightArray, valueArray, capacity, i+1)
+    }
+}
+
 
 function O1knapsackDP(weightArray = [], valueArray = [], capacity)
 {
@@ -52,7 +73,7 @@ function O1knapsackDP(weightArray = [], valueArray = [], capacity)
     return O1knapsack(weightArray, valueArray, capacity, size, t)
 }
 
-function O1knapsack(weightArray = [], valueArray = [], capacity, i, t)
+function O1knapsackMemo(weightArray = [], valueArray = [], capacity, i, t)
 {
     // base condition = Think of smallest valid input
     if(i === 0 || capacity === 0)
@@ -63,18 +84,56 @@ function O1knapsack(weightArray = [], valueArray = [], capacity, i, t)
 
     if(weightArray[index] <= capacity)
     {
-        const includeWeight = valueArray[index] + O1knapsack(weightArray, valueArray, capacity - weightArray[index], i-1)
-        const notIncludeWeight =  O1knapsack(weightArray, valueArray, capacity, i-1)
+        const includeWeight = valueArray[index] + O1knapsackMemo(weightArray, valueArray, capacity - weightArray[index], i-1)
+        const notIncludeWeight =  O1knapsackMemo(weightArray, valueArray, capacity, i-1)
         t[i][capacity] = Math.max(includeWeight, notIncludeWeight)
 
     }
     else
     {
-        t[i][capacity] = O1knapsack(weightArray, valueArray, capacity, i-1)
+        t[i][capacity] = O1knapsackMemo(weightArray, valueArray, capacity, i-1)
     }
 
     return t[i][capacity];
 }
+
+
+function O1knapsackTabular(weightArray = [], valueArray = [], capacity)
+{
+    const size = weightArray.length + 1;
+    const t = Array.from({ length: size }, () => Array(capacity + 1));
+
+    // Initialize values = base condition
+    for(let i = 0; i < size; i++)
+    {
+        for(let j = 0; j < capacity + 1; j++)
+        {
+            if(i === 0 || j === 0)
+                t[i][j] = 0
+        }
+    }
+    
+    // Hypothesis
+    for(let i = 1; i < size; i++)
+    {
+        for(let j = 1; j < capacity + 1; j++)
+        {
+
+            if(weightArray[i - 1] <= j)
+            {
+                t[i][j] = Math.max(valueArray[i-1] + t[i-1][j - weightArray[i-1]], t[i-1][j])
+            }
+            else
+            {
+                t[i][j] = t[i-1][j]
+            }
+        }
+    }
+
+    return t[size][capacity];
+}
+
+
 
 function unboundedKnapSack(priceArray = [], weightArray = [], capacity = 0) //knapSack01([60,100,120], [10,20,30], 50) ->  220
 {
@@ -250,6 +309,9 @@ function knapsack01(weights, values, capacity)
 
     return dp[n][capacity];
 }
+
+
+
 
 // Example usage
 const weights = [2, 3, 4, 5];
