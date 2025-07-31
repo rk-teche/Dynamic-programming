@@ -75,9 +75,9 @@ function unboundedKnapSack(weights, values, capacity)
  * rod cutting problem is exact same as unbounded knapsack until any constrains is given in question
  */
 // https://leetcode.com/problems/integer-break
-// https://leetcode.com/problems/coin-change/description/
-// https://leetcode.com/problems/coin-change-ii/description/
-// https://leetcode.com/problems/minimum-cost-for-tickets/
+// https://leetcode.com/problems/coin-change/description
+// https://leetcode.com/problems/coin-change-ii/description
+// https://leetcode.com/problems/minimum-cost-for-tickets
 // https://leetcode.com/problems/combination-sum
-// https://leetcode.com/problems/perfect-squares/
-// https://leetcode.com/problems/minimum-cost-to-cut-a-stick/
+// https://leetcode.com/problems/perfect-squares
+// https://leetcode.com/problems/minimum-cost-to-cut-a-stick
