@@ -24,146 +24,7 @@
  * 15. https://leetcode.com/problems/the-number-of-beautiful-subsets/description/
  */
 
-/**
- * Problem 1: Return true or false if Subsets are present
- */
 
-/**
- * This approach is better then recursion + memo cause it won't fill the callStack
- * Time Complexity - O(n × sum)
- * Space Complexity - O(n × sum)
- * @param {*} valueArr 
- * @param {*} sum 
- * @returns 
- */
-function findSubset(valueArr = [], sum)
-{
-    const dp = Array.from({ length: valueArr.length }, () => Array(sum + 1)); // Space Complexity O(n × sum)
-    
-    // Initialization
-    for(let i = 0; i < valueArr.length; i++)
-    {
-        for(let j = 0; j < sum+1; j++)
-        {
-            if(i === 0)
-                dp[i][j] = false;
-
-            if(j === 0)
-                dp[i][j] = true;
-        }
-    }
-
-    // hypothesis - Time Complexity - O(n × sum)
-    for(let i = 1; i < valueArr.length; i++)
-    {
-        for(let j = 1; j < sum+1; j++)
-        {
-            if(valueArr[i - 1] <= j)
-            {
-                dp[i][j] = dp[i][j - valueArr[i-1]] || dp[i-1][j]
-            }
-            else
-            {
-                dp[i][j] = dp[i-1][j]
-            }
-        }
-    }
-
-    return dp[valueArr.length][sum];
-}
-
-/**
- * DP approach but it reduces the space complexity using 1D array;
- * How it works ? -
- *  1. Each dp[i][j] only depends on the previous row, i.e., dp[i-1][j] and dp[i-1][j - valueArr[i-1]].
-    2. So we can just reuse one array by iterating j in reverse (to avoid overwriting needed values).
-
- * Time Complexity - O(n × sum)
- * Space Complexity - O(sum)
- * @param {*} valueArr 
- * @param {*} sum 
- * @returns 
- */
-function findSubsetOptimized(valueArr = [], sum) {
-    const dp = Array(sum + 1).fill(false);
-    dp[0] = true; // sum 0 is always possible with empty subset
-
-    for (let i = 0; i < valueArr.length; i++) {
-        const currentVal = valueArr[i];
-        for (let j = sum; j >= currentVal; j--) {
-            dp[j] = dp[j] || dp[j - currentVal];
-        }
-    }
-
-    return dp[sum];
-}
-
-/**
- * Recursion + memo approach
- * Time Complexity - O(n × sum)
- * Space Complexity - O(sum)
- * @param {*} valueArr 
- * @param {*} sum 
- * @returns 
- */
-function isSubsetSum(valueArr, sum) {
-    const memo = new Map();
-
-    function helper(index, target) {
-        if (target === 0) return true;           // Subset found
-        if (index === 0) return valueArr[0] === target;
-
-        const key = `${index}-${target}`;
-        if (memo.has(key)) return memo.get(key);
-
-        // Exclude current item
-        const exclude = helper(index - 1, target);
-
-        // Include current item if it's not greater than target
-        let include = false;
-        if (valueArr[index] <= target) {
-            include = helper(index - 1, target - valueArr[index]);
-        }
-
-        const result = include || exclude;
-        memo.set(key, result);
-        return result;
-    }
-
-    return helper(valueArr.length - 1, sum);
-}
-
-
-/**
- * Problem 2: Return Subsets
- */
-function subSets(arr = [], target)
-{
-  const result = [];
-  
-  function findSubSet(index, currentSubSets, currentSum)
-  {
-    if(currentSum === target)
-    {
-      result.push([...currentSubSets]);
-      return;
-    }
-
-    if(index >= arr.length || currentSum > target)
-      return;
-
-    // include
-    currentSubSets.push(arr[index]);
-    findSubSet(index+1, currentSubSets, currentSum + arr[index]);
-
-    // exclude
-    currentSubSets.pop();
-    findSubSet(index+1, currentSubSets, currentSum);
-  }
-
-  findSubSet(0, [], 0)
-  return result;
-}
 
 /**
  * String subsets
@@ -211,97 +72,52 @@ function subSetSum(valueArray = [], sum = 0, i = 0, output = [])
     }
 }
 
-function generateSubsetsWithSum(nums, targetSum) {
-    const subsets = [];
-  
-    function backtrack(startIndex, currentSubset, currentSum) {
-      if (currentSum === targetSum) {
-        subsets.push(currentSubset.slice()); // Add a copy of the current subset to the subsets array
-      }
-  
-      for (let i = startIndex; i < nums.length; i++) {
-        if (currentSum + nums[i] <= targetSum) {
-          currentSubset.push(nums[i]); // Include the current element in the subset
-          backtrack(i + 1, currentSubset, currentSum + nums[i]); // Recursively generate subsets with the next elements
-          currentSubset.pop(); // Backtrack by removing the current element from the subset
-        }
+function generateSubsetsWithSum(nums, targetSum) 
+{
+  const subsets = [];
+
+  function backtrack(startIndex, currentSubset, currentSum) {
+    if (currentSum === targetSum) {
+      subsets.push(currentSubset.slice()); // Add a copy of the current subset to the subsets array
+    }
+
+    for (let i = startIndex; i < nums.length; i++) {
+      if (currentSum + nums[i] <= targetSum) {
+        currentSubset.push(nums[i]); // Include the current element in the subset
+        backtrack(i + 1, currentSubset, currentSum + nums[i]); // Recursively generate subsets with the next elements
+        currentSubset.pop(); // Backtrack by removing the current element from the subset
       }
     }
-  
-    backtrack(0, [], 0); // Start generating subsets from index 0 with an empty initial subset and sum of 0
-    return subsets;
   }
+
+  backtrack(0, [], 0); // Start generating subsets from index 0 with an empty initial subset and sum of 0
+  return subsets;
+}
   
   // Example usage
   const nums = [2, 4, 7, 9, 11];
   const targetSum = 13;
   const subsetsWithSum = generateSubsetsWithSum(nums, targetSum);
   console.log(subsetsWithSum);
-  
-
-
-function subSetSumDP(valueArray = [], sum = 0) // [2, 4, 7, 9, 11], 13
-{
-
-    const rows = valueArray.length + 1;
-    const columns = sum + 1; 
-
-    const dp = new Array(rows);
-    for (let i = 0; i < rows; i++)
-    {
-        dp[i] = new Array(columns).fill();
-    }
-
-    for(let i = 0; i < rows; i++)
-    {
-      for(let j = 0; j < columns; j++)
-      {
-        if(i === 0) 
-          dp[i][j] = false
-
-        if(j === 0)
-          dp[i][j] = true
-      }
-    }
-
-    return subSetSum(valueArray, sum, dp)
-
-}
-
-
-function subSetSum(valueArray = [], sum = 0, dp = [[]])
-{
-  for (let i = 1; i <= valueArray.length; i++) {
-    for (let j = 1; j <= sum; j++) {
-      if (valueArray[i - 1] > j) {
-        dp[i][j] = dp[i - 1][j];
-      } else {
-        dp[i][j] = dp[i-1][j - valueArray[i - 1]] || dp[i - 1][j];
-      }
-    }
-  }
-
-  console.log("dp", dp)
-  return dp[valueArray.length][sum];
-}
 
 function isSubsetSum(set, n, sum)
-    {
-        // Base Cases
-        if (sum == 0)
-            return true;
-        if (n == 0)
-            return false;
-  
-        // If last element is greater than sum,
-        // then ignore it
-        if (set[n - 1] > sum)
-            return isSubsetSum(set, n - 1, sum);
-  
-        // Else, check if sum can be obtained
-        // by any of the following
-        // (a) including the last element
-        // (b) excluding the last element
-        return isSubsetSum(set, n - 1, sum)
-          || isSubsetSum(set, n - 1, sum - set[n - 1]);
-    }
+{
+    // Base Cases
+    if (sum == 0)
+        return true;
+
+    if (n == 0)
+        return false;
+
+    // If last element is greater than sum,
+    // then ignore it
+    if (set[n - 1] > sum)
+        return isSubsetSum(set, n - 1, sum);
+
+    // Else, check if sum can be obtained
+    // by any of the following
+    // (a) including the last element
+    // (b) excluding the last element
+    return isSubsetSum(set, n - 1, sum)
+      || isSubsetSum(set, n - 1, sum - set[n - 1]);
+}
