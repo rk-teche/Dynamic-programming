@@ -19,6 +19,40 @@ function largestSubArraySumK(numbers = [], k = 0)
     return maxSize
 }
 
+function allSubArraySizeK(nums = [], k)
+{
+    const subArrayMax = [];
+    let i = 0; j = 0;
+
+    let max = -Infinity, secondMax = -Infinity;
+    while(j < nums.length)
+    {
+        const currentEle = nums[j];
+        max = currentEle > max ? currentEle : max;
+        secondMax = currentEle > secondMax && currentEle <= max ? currentEle : secondMax;
+
+        const currentWindowSize = (j - i) + 1;
+        if(currentWindowSize < k)
+        {
+            j++
+        }
+        else if(currentWindowSize === k)
+        {
+            subArrayMax.push(max);
+
+            if(max === nums[i])
+                max = secondMax;
+
+            i++;
+            j++
+            
+        }
+    }
+
+    return subArrayMax;
+
+}
+
 // Q1: https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
 
 // Q2: https://leetcode.com/problems/subarray-sum-equals-k/

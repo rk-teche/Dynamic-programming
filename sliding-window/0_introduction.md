@@ -12,5 +12,20 @@ Window Size is either given or we have to find out
 2. Variable size window : they asked for window size in program i.e. calculate largest window and smallest window
 
 
+# fixed size Problems
+1. Max min sub-array of size k
+2. First negative in every min size of k
+3. Count occurence of anagram
+4. Maximum of all subarray of the size K
+5. Max of min for every window size
+
+# Variable Size Problem
+1. Largest, smallest subarry [Sum K]
+2. Largest sub-string K distinct characters
+3. Length of largest substring without repeating characters
+4. Pick Toy
+5, Minimum window substring
+
+
 # Problems -
 https://leetcode.com/tag/sliding-window/

@@ -102,7 +102,7 @@ function largestSum(nums, k) // [1,3,4,7,2,12,8,19,31], 3
     return maxSum
 }
 
-function isNegative(nums)
+function isNegative(num)
 {
     return num < 0 || (1/num === -Infinity)
 }
@@ -124,31 +124,4 @@ function firstNegativeNum(nums = [], k = 0)
    }
 
    return negativeArray
-}
-
-function firstNegativeNum(nums, k) // [12,-1,-7,8,-15,30,16,28], 3
-{
-    let i = 0, j = 0, negativeArray = [], firstNegative = false;
-
-    while(j < nums.length)
-    {
-        if(!firstNegative && isNegative(nums[j]))
-        {
-            negativeArray.push(nums[j]);
-            firstNegative = true
-        }
-
-        if(j-i+1 < k)
-        {
-            j++
-        }
-        else if(j-i+1 === k)
-        {
-            firstNegative = false;
-            j++
-            i++
-        }
-    }
-
-    return negativeArray
 }
