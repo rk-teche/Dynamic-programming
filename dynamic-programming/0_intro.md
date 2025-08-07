@@ -163,7 +163,7 @@ https://leetcode.com/problems/number-of-ways-of-cutting-a-pizza/
 https://leetcode.com/problems/paint-house-iii/
 https://leetcode.com/problems/count-all-possible-routes/
 
-4.Interval DP
+# 4.Interval DP
 https://leetcode.com/problems/guess-number-higher-or-lower-ii/
 https://leetcode.com/problems/arithmetic-slices/
 https://leetcode.com/problems/predict-the-winner/

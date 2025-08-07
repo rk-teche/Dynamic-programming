@@ -29,6 +29,25 @@ var subsets = function(nums, i = 0, subSets = [], result = []) {
 
 };
 
+var subsets = function(nums, i = 0, subSets = [], result = []) {
+    if(i === nums.length)
+    {
+        result.push(subSets);
+        return result;
+    }
+
+    const currentElement = nums[i];
+    
+    // chosen:
+    subsets(nums, i+1, [...subSets, currentElement], result);
+
+    // not chosen:
+    subsets(nums, i+1, subSets, result);
+
+    return result;
+
+};
+
 /**
  * iterative bitmask version
  * @param {*} nums 
@@ -88,6 +107,14 @@ var subsetsWithDup = function(nums, i = 0, subSets = [], result = []) {
 
 };
 
+/**
+ * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    
+};
 
 // var letterCasePermutation = function(s, i = 0, permutation = "", result = []) {
 //     if(i >= s.length)

@@ -58,3 +58,5 @@ var reverseWords = function(s) {
 var reverseWords = function(s) {
     return s.trim().split(" ").reverse().filter(word => word.length != 0).join(" ")
 };
+
+// https://leetcode.com/problems/reverse-words-in-a-string-iii/description/

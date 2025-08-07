@@ -1,3 +1,37 @@
+class Stack {
+  #stack = [];
+
+  push(item) {
+    return this.#stack.push(item);
+  }
+
+  pop() {
+    return this.#stack.pop(); // ✅ LIFO
+  }
+
+  peek() {
+    return this.#stack[this.#stack.length - 1]; // ✅ Last item
+  }
+
+  get size() {
+    return this.#stack.length;
+  }
+
+  isEmpty() {
+    return this.#stack.length === 0;
+  }
+
+  clear() {
+    this.#stack = [];
+    return this.#stack;
+  }
+
+  print() {
+    return [...this.#stack]; // Optionally return a copy
+  }
+}
+
+
 // minmum stack with extra space
 class Stack
 {

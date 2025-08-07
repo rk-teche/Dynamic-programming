@@ -14,7 +14,7 @@
  */
 
 // Q: Print number 1 to n
-// My Method
+// My Method -> this print n to 1
  function print(n)
  {
     if(n <= 0) // base condition
@@ -24,7 +24,7 @@
     return print(n-1) // hypothesis
  }
 
-// Aditya Method
+// Aditya Method - this print 1 to n
  function print1(n)
  {
     if(n <= 0) // base condition
@@ -46,6 +46,69 @@ function factorial(n)
     return n * factorial(n-1) //hypothesis
 }
 
+var fib = function(n) {
+    const result = [0, 1];
+
+    for(let i = 0; i < n-2; i++)
+    {
+        result.push(result[result.length - 2] + result[result.length - 1])
+    }
+
+    return result
+};
+
+/**
+ * https://leetcode.com/problems/fibonacci-number/description/
+ * @param {*} n 
+ */
+var fib = function(n, memo = {}) {
+    if(n === 0)
+        return 0;
+
+    if(n === 1)
+        return 1;
+
+    if(!memo[n])
+        memo[n] = fib(n-1, memo) + fib(n-2, memo);
+    
+    return memo[n];
+};
+
+/**
+ * https://leetcode.com/problems/sort-an-array/
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArray = function(nums = []) {
+    if(nums?.length === 1)
+        return nums;
+
+    const currentElement = nums.pop();
+    const sortedArray = sortArray(nums);
+
+    return insertItem(sortedArray, currentElement);
+};
+
+var insertItem = function(arr = [], element)
+{
+    if(!arr.length || element >= arr[arr.length - 1])
+    {
+        arr.push(element);
+        return arr;
+    }
+
+    const currElement = arr.pop();
+    insertItem(arr, element).push(currElement);
+    return arr;
+}
+
+
+/**
+ * https://leetcode.com/problems/climbing-stairs/description/
+ */
+
+
+
 /**
  * https://leetcode.com/problems/k-th-symbol-in-grammar/
  * @param {number} n
@@ -66,7 +129,7 @@ var kthGrammar = function(n, k)
  * Tower of Hanoi
  */ 
 function towerOfHanoi(n, source, destination, auxiliary, count = 0) {
-    count++
+    count++;
     if (n === 1) {
         console.log(`Move disk 1 from ${source} to ${destination}`);
         return;
@@ -81,5 +144,5 @@ function towerOfHanoi(n, source, destination, auxiliary, count = 0) {
     // Move n-1 disks from auxiliary to destination, using source as helper
     towerOfHanoi(n - 1, auxiliary, destination, source, count);
 
-    return count
+    return count;
 }

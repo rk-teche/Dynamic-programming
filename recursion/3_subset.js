@@ -147,12 +147,32 @@ function towerOfHonei(sourceArray = [], helperArray = [], destinationArray = [],
  * SubString, SubSequence, Subset difference
  * 
  * SubString -> Any middle part of the string but continuous
- * SubSequence -> Take any part of the string not necessilary continuous but in same order, either left tot right to right to left
+ * SubSequence -> Take any part of the string not necessilary continuous but in same order, either left to right to right to left
  * SubSet -> neither order nor continuation matter, any format of string
  * 
  * All SubSequences are subsets
  * 
  */
+
+// `i` is not required if you make input smaller
+function subset1(input, i = 0, output = "", result = [])
+{
+    if(i === input.length)
+    {
+        result.push(output);
+        return result;
+    }
+
+    const currentLetter = `${output}${input[i]}`;
+
+    // choice 1: chosen
+    subset1(input, i+1, currentLetter, result);
+
+    // choice 2: not chosen
+    subset1(input, i+1, output, result);
+
+    return result;
+}
 
 /**
  * Subset varitions -> Print Powerset, Print Subset
@@ -206,8 +226,12 @@ function spacesMutation(input = "", output = "", result = new Set()) // A, BC
     const newOutput1 = `${output}${input[0]}`
     const newOutput2 = `${output}_${input[0]}`
     
-    spacesMutation(newInput, newOutput1, result)
-    return spacesMutation(newInput, newOutput2, result)
+    if(output)
+    {
+        spacesMutation(newInput, newOutput2, result)
+    }
+
+    return spacesMutation(newInput, newOutput1, result)
 }
 
 
@@ -288,6 +312,43 @@ function balancedParentheses(open = 3, close = 3, output = '', result = new Set(
     return !(open === close) ? balancedParentheses(open, close-1, `${output})`, result) : result
 }
 
+
+/**
+ * https://leetcode.com/problems/generate-parentheses/description/
+ * @param {number} n
+ * @return {string[]}
+ */
+var generateParenthesis = function(n) {
+    return generateBalanced(n, n)
+};
+
+var generateBalanced = function(open, close, output = "", result = [])
+{
+    if(open === 0 && close === 0)
+    {
+        result.push(output);
+        return result;
+    }
+
+    // only one choice - open bracket
+    if(open === close)
+    {
+        generateBalanced(open - 1, close, `${output}(`, result);
+    }
+    else
+    {
+        // choice 1: open bracket
+        if(open > 0)
+        {
+            generateBalanced(open - 1, close, `${output}(`, result);
+        }
+
+        // choice 2: close bracket
+        generateBalanced(open, close - 1, `${output})`, result);
+    }
+    return result
+}
+
 function onesBinaryNumber(number = 3, zeroCount = 0, oneCount = 0, output = '', result = new Set())
 {
     if(zeroCount+oneCount === number)
@@ -354,3 +415,24 @@ function gameOfDeath(people = [1], choice = 1, index = 0) // [1,2,3,4,5]  2
     people.splice(deathIdx, 1)
     return gameOfDeath(people, choice, deathIdx)
 }
+
+
+/**
+ * https://leetcode.com/problems/find-the-winner-of-the-circular-game/
+ * @param {number} n
+ * @param {number} k
+ * @return {number}
+ */
+var findTheWinner = function(n, k) {
+    const arr = Array.from({ length: n }).map((_, idx) => idx+1);
+    let prevIndex = 0;
+    while(arr.length > 1)
+    {
+        let removeIdx = (prevIndex - 1 + k);
+        removeIdx = removeIdx >= arr.length ? removeIdx % arr.length : removeIdx;
+        arr.splice(removeIdx, 1)
+        prevIndex = removeIdx;
+    }
+
+    return arr[0]
+};

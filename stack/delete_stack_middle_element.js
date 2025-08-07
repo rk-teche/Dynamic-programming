@@ -64,3 +64,29 @@ function deleteMiddleStackElement(stack, size)
     return stack;
 }
 
+function reverseStack(stack)
+{
+    if(!stack.length)
+        return stack;
+
+    const middleEle = Math.ceil(stack.length / 2)
+    return reverse(stack, middleEle);
+}
+
+function reverse(stack, middle, i = 0)
+{
+    if(middle === i)
+        return stack;
+
+    const replaceIndex = stack.length - 1 - i
+    if(i !== replaceIndex)
+    {
+        const temp = stack[i];
+        stack[i] = stack[replaceIndex]
+        stack[stack.length - 1 - i] = temp;
+    }
+
+    return reverse(stack, middle, i+1)
+
+}
+
